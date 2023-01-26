@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../index.ts"],
-  "sourcesContent": ["import express from 'express'\nimport { Configuration, OpenAIApi } from 'openai'\n\nconst configuration = new Configuration({\n  apiKey: process.env.OPENAI_API_KEY,\n})\nconst openai = new OpenAIApi(configuration)\n\nconst app = express()\nconst port = 3000\n\napp.get('/', async (_: express.Request, res: express.Response) => {\n  const response = await openai.createCompletion({\n    model: \"code-davinci-002\",\n    prompt: `\n      <!-- Write HTML to display SiteGPT with a cool background image. -->\\n\n      <!DOCTYPE html>\n    `,\n    temperature: 0,\n    max_tokens: 256\n  })\n  res.send(response.data.choices[0].text)\n})\n\napp.listen(port, () => console.log(`server started at localhost:${port}`))"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;AAAA,qBAAoB;AACpB,oBAAyC;AAEzC,MAAM,gBAAgB,IAAI,4BAAc;AAAA,EACtC,QAAQ,QAAQ,IAAI;AACtB,CAAC;AACD,MAAM,SAAS,IAAI,wBAAU,aAAa;AAE1C,MAAM,UAAM,eAAAA,SAAQ;AACpB,MAAM,OAAO;AAEb,IAAI,IAAI,KAAK,OAAO,GAAoB,QAA0B;AAChE,QAAM,WAAW,MAAM,OAAO,iBAAiB;AAAA,IAC7C,OAAO;AAAA,IACP,QAAQ;AAAA;AAAA;AAAA;AAAA;AAAA,IAIR,aAAa;AAAA,IACb,YAAY;AAAA,EACd,CAAC;AACD,MAAI,KAAK,SAAS,KAAK,QAAQ,GAAG,IAAI;AACxC,CAAC;AAED,IAAI,OAAO,MAAM,MAAM,QAAQ,IAAI,+BAA+B,MAAM,CAAC;",
-  "names": ["express"]
-}
