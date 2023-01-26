@@ -12,13 +12,11 @@ const port = 3000
 app.get('/', async (_: express.Request, res: express.Response) => {
   const response = await openai.createCompletion({
     model: "code-davinci-002",
-    prompt: `
-      <!-- Write HTML to display SiteGPT with a cool background image. -->\n
-      <!DOCTYPE html>
-    `,
+    prompt: "<!-- Create a web page with the title 'SiteGPT', the tagline 'Website by OpenAI Codex', and a gradient background -->\n<!DOCTYPE html>",
     temperature: 0,
-    max_tokens: 256
+    max_tokens: 256 * 2
   })
+  console.log(response.data.choices[0].text)
   res.send(response.data.choices[0].text)
 })
 
