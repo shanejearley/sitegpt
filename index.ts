@@ -1,22 +1,20 @@
 import express from 'express'
-import { Configuration, OpenAIApi } from 'openai'
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-})
-const openai = new OpenAIApi(configuration)
+import OpenAI from './providers/OpenAI'
 
 const app = express()
 const port = 3000
+const openAI = new OpenAI()
 
 app.get('/', async (_: express.Request, res: express.Response) => {
-  const response = await openai.createCompletion({
+  const response = await openAI.createCompletion({
     model: "code-davinci-002",
-    prompt: "<!-- Create a web page with the title 'SiteGPT' -->\n<!DOCTYPE html>",
-    temperature: 0,
-    max_tokens: 256 * 4
+    prompt: "<!-- Create a web page with the title 'WebsiteGPT: Website Designed with the OpenAI Codex Engine' -->\n<!DOCTYPE html>",
+    temperature: 0.5,
+    max_tokens: 1024,
+    stop: '</html>'
   })
   res.send(response.data.choices[0].text)
 })
 
-app.listen(port, () => console.log(`server started at localhost:${port}`))
+app.listen(port, () => console.log(`SiteGPT listening on localhost:${port}`))
+
